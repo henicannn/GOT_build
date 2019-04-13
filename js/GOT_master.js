@@ -1,16 +1,16 @@
 (() => {
 	console.log('DRAGONS');
 
-	const 	sigils  = document.querySelectorAll(".sigil-container"),
-			lightbox  = document.querySelector('.lightbox'),
-			video = document.querySelector('video'),
-			lbClose = document.querySelector('.lightbox-close'),
-			topBanners = document.querySelector('#houseImages'),
-			tagline = document.querySelector('.house-name'),
-			houseInfo = document.querySelector('.house-info'),
+	const 	sigils              = document.querySelectorAll(".sigil-container"),
+			lightbox    = document.querySelector('.lightbox'),
+			video       = document.querySelector('video'),
+			lbClose     = document.querySelector('.lightbox-close'),
+			topBanners  = document.querySelector('#houseImages'),
+			tagline     = document.querySelector('.house-name'),
+			houseInfo   = document.querySelector('.house-info'),
 			targetVideo = '';
 			
-		let targetHouse = '';
+		let targetHouse     = '';
 
 
 	const houseData = [
@@ -36,7 +36,6 @@
 	function openLightbox() {
 		
 		let targetVid = targetHouse.charAt(0).toUpperCase() + targetHouse.slice(1);
-
 		video.src = `video/House-${targetVid}.mp4`;
 		lightbox.classList.add('lightbox-on');
 		video.load();
@@ -45,7 +44,6 @@
 
 	function closeLightbox() {
 		lightbox.classList.remove('lightbox-on');
-
 		video.currentTime = 0;
 		video.pause();
 	}
@@ -53,30 +51,18 @@
 	function animateBanners() {
 		
 		const offSet = 600;
-		let currentOffset = this.dataset.offset * offSet;
-		
+		let currentOffset = this.dataset.offset * offSet;		
 		targetHouse = this.className.split(" ")[1];
-
-		topBanners.style.right = currentOffset + 'px';
-		
-		
+		topBanners.style.right = currentOffset + 'px';		
 		tagline.textContent = `House ${houseData[this.dataset.offset][0]}`;
 		houseInfo.textContent = houseData[this.dataset.offset][1];
-
 	}
 
 	function logEnded() {
-		
 		console.log('logEnded');
-		
 		openLightbox();
-
 	}
-
-	// when i click move the carosel
 sigils.forEach(sigil => sigil.addEventListener('click', animateBanners));
-
-
 topBanners.addEventListener('transitionend', logEnded);
 video.addEventListener('ended', closeLightbox);
 lbClose.addEventListener('click', closeLightbox);
